@@ -1,20 +1,56 @@
-
+import java.util.*;
 int size = 40;
 int[][] grid = new int[25][25];
 
 Player player;
-Enemy enemy;
-Food food;
+
+Enemy enemy1;
+Enemy enemy2;
+Enemy enemy3;
+Enemy enemy4;
+
+Food food1;
+Food food2;
+Food food3;
+Food food4;
+
+List<Enemy> enemies = new ArrayList<Enemy>();
+List<Food> allFood = new ArrayList<Food>();
+
+// Gives a NullPointerException
+//Enemy[] enemies = { 
+//  new Enemy(20, 19, player),
+//  new Enemy(18, 19, player),
+//  new Enemy(18, 17, player),
+//  new Enemy(20, 17, player),
+//};
 
 void setup()
 {
     size(1001, 1001);
     player = new Player(3, 4);
-    enemy = new Enemy(20, 19, player);
-    food = new Food(3, 19, player);
+    enemy1 = new Enemy(20, 19, player);
+    enemy2 = new Enemy(18, 19, player);
+    enemy3 = new Enemy(18, 17, player);
+    enemy4 = new Enemy(20, 17, player);
+    
+    food1 = new Food(3, 19, player);
+    food2 = new Food(int(random(5, grid.length - 4)), int(random(3, grid[0].length - 4)), player); 
+    food3 = new Food(int(random(5, grid.length - 4)), int(random(12, grid[0].length - 4)), player); 
+    food4 = new Food(int(random(5, grid.length - 4)), int(random(15, grid[0].length - 4)), player); 
     
     lastTime = millis();
     
+    enemies.add(enemy1);
+    enemies.add(enemy2);
+    enemies.add(enemy3);
+    enemies.add(enemy4);
+    
+    allFood.add(food1);
+    allFood.add(food2);
+    allFood.add(food3);
+    allFood.add(food4);
+      
 }
 
 void draw()
@@ -22,8 +58,11 @@ void draw()
     clearBoard();
     updateEntities();
     drawBoard(); 
+    
+    // Debug
     //println(player.health);
     println(player.score);
+    
 }
 
 void clearBoard()
@@ -51,22 +90,44 @@ void drawBoard()
     }
 }
 
-float lastTime = 0;
+float lastTime = 0.0;
+float lastTime2 = 0.0;
 
 void updateEntities()
 {
     grid[player.x][player.y] = player.type; //displays player
-    grid[enemy.x][enemy.y] = enemy.type;    //displays enemy
-    grid[food.x][food.y] = food.type;       //displays food
-    resolveCollisionEnemy(enemy);
-    resolveCollisionFood();
     
-    if ( millis() - lastTime > 200 )        // delaying enemy movement
+    for (Enemy e : enemies)                 
     {
-      enemy.MoveTowardsPlayer();
-      lastTime = millis();
+        grid[e.x][e.y] = e.type;            //displays all enemies
+        resolveCollisionEnemy(e);           //detects collision with player and enemy and gives damages
+    }  
+    
+    for (Food f : allFood)
+    {
+        grid[f.x][f.y] = f.type;            //displays food
+        resolveCollisionFood(f);            //detects collision with player and food and increases score
     }
     
+    
+    if ( millis() - lastTime > 300 )        //delaying enemy movement
+    {
+       for (Enemy e : enemies)              //all enemy movement
+       {
+           e.moveTowardsPlayer();
+           lastTime = millis();
+        }
+    }
+    
+    
+    if (millis() - lastTime2 > 300 )        //delaying food movement
+    {
+        for (Food f : allFood)              //all food movement
+        {
+            f.moveAwayPlayer();
+            lastTime2 = millis();
+        }
+    }
     
 }
 
@@ -82,14 +143,23 @@ void resolveCollisionEnemy(Enemy tempEnemy)
 
 boolean eaten = false;
 
-void resolveCollisionFood()
+void resolveCollisionFood(Food tempFood)
 {
-    if (grid[food.x][food.y] == grid[player.x][player.y] && eaten == false)
+    if (grid[tempFood.x][tempFood.y] == grid[player.x][player.y] && eaten == false)
     {
-        player.increaseScore();
+        if (grid[tempFood.x][tempFood.y] == grid[player.x][player.y] && eaten == false && tempFood.type != 0)
+        {
+            player.increaseScore();
+        }
         eaten = true;
-        food.type = 0;
+        tempFood.type = 0;
+        
     }
+    if (tempFood.type != 0)
+    {
+        eaten = false;
+    }
+    
 }
 
 

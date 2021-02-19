@@ -12,7 +12,7 @@ class Food
         this.player = player;
     }
     
-        void MoveAwayPlayer()
+        void moveAwayPlayer()
     {
         int xDistance = Math.abs(player.x - x);
         int yDistance = Math.abs(player.y - y);

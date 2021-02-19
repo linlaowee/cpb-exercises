@@ -12,7 +12,7 @@ class Enemy
         this.player = player;
     }
 
-    void MoveTowardsPlayer()
+    void moveTowardsPlayer()
     {
         int xDistance = Math.abs(player.x - x);
         int yDistance = Math.abs(player.y - y);
