@@ -24,6 +24,10 @@ class Food
         {
           x += random(-1,1);
           y += random(-1,1);
+          if (y >= grid[0].length)
+          {
+               y = grid[0].length -1;
+          }
         }
         
         // moving towards the player

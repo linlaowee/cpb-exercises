@@ -2,6 +2,8 @@ import java.util.*;
 int size = 40;
 int[][] grid = new int[25][25];
 
+PImage img;
+
 Player player;
 
 Enemy enemy1;
@@ -50,18 +52,30 @@ void setup()
     allFood.add(food2);
     allFood.add(food3);
     allFood.add(food4);
+    
+    img = loadImage("gameover.png");
       
 }
 
 void draw()
 {
     clearBoard();
-    updateEntities();
+    if (!isGameOver(player)){
+        updateEntities();
+        //clearBoard();
+        //drawBoard(); 
+        
+    }
     drawBoard(); 
     
+    if (isGameOver(player)){
+        image(img,0,0);
+    }
+    
+    
     // Debug
-    //println(player.health);
-    println(player.score);
+    println(player.health);
+    //println(player.score);
     
 }
 
@@ -140,14 +154,13 @@ void resolveCollisionEnemy(Enemy tempEnemy)
 }
 
 
-
 boolean eaten = false;
 
 void resolveCollisionFood(Food tempFood)
 {
     if (grid[tempFood.x][tempFood.y] == grid[player.x][player.y] && eaten == false)
     {
-        if (grid[tempFood.x][tempFood.y] == grid[player.x][player.y] && eaten == false && tempFood.type != 0)
+        if (grid[tempFood.x][tempFood.y] == grid[player.x][player.y] && tempFood.type != 0)
         {
             player.increaseScore();
         }
@@ -163,9 +176,23 @@ void resolveCollisionFood(Food tempFood)
 }
 
 
+boolean isGameOver(Player tempPlayer)
+{
+    if (tempPlayer.health <= 0)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+}
 
 
-//Here are the color values for the fields
+
+
+
+//Here are the color values for the fields and enteties
 color getColorFromType(int type) 
 {
     color c = color(255);
@@ -173,21 +200,20 @@ color getColorFromType(int type)
     switch(type)
     {
         case 0: 
-            c = color(150); //grey
+            c = color(150);         //grey
             break;
         case 1: 
-            c = color(230,70,70); //red
+            c = color(230,70,70);   //red
             break;
         case 2: 
-            c = color(0, 255, 0); //green
+            c = color(0, 255, 0);   //green
             break;
         case 3: 
-            c = color(0,0,255);
+            c = color(0,0,255);     //blue
             break;
         case 4: 
-            c = color (0,255,255);
+            c = color (0,255,255);  //cyan
             break;
-            
     }    
     
     return c; 
