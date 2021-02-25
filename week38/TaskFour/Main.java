@@ -1,7 +1,7 @@
 public class Main{
     public static void main(String[] args){
         //4.a
-        int[] intArray = {2, 5, 6};
+        int[] intArray = {2, 5, 6, 4, 1};
         String[] stringArray = {"woomy", "ngyes", "veemo", "oomi"};
         boolean[] boolArray = {true, false, true};
 
@@ -24,6 +24,11 @@ public class Main{
         An if statement compares the values for [i] and [j], and if [i] has a higher value 
         than [j], then [i] gets [j]'s value and vice versa.
         */
+        orderArrayLowToHigh(intArray);
+        for(int i = 0; i < intArray.length; i++){
+            System.out.println(intArray[i]);
+        }
+
 
     }
 
@@ -49,6 +54,19 @@ public class Main{
         float sum = (float)sumOfInts(array);
         float average = (float) sum / array.length;
         return average;
+    }
+
+    //4.e
+    static void orderArrayLowToHigh(int[] array){
+        for (int i = 0; i < array.length; i++){
+            for (int j = i+1; j < array.length; j++){
+                if(array[i] > array[j]){
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
     }
 
 }
