@@ -38,8 +38,14 @@ public class Main {
         //test dine metoder ved at kalde dem her:
         System.out.println("Words with double consonant:");
         printWordsWithDoubleConsonant();
+
         System.out.println("Longest sentence:");
         printLongestSentence();
+
+        System.out.println("Part of the word København:");
+        printPartOfWord("København", 1,4);
+        printPartOfWord("København", 6, 6);
+        printPartOfWord("København", 14, 2);
 
 
     }
@@ -84,6 +90,7 @@ public class Main {
 
     //skriv dine metoder herunder:
 
+    //Task 1:
     private static void printWordsWithDoubleConsonant() {
         //boolean wordIsValid = true;
 
@@ -107,7 +114,7 @@ public class Main {
         }
     }
 
-
+    //Task 2:
     private static void printLongestSentence(){
         int maxLength = 0;
         String longestString = null;
@@ -120,6 +127,29 @@ public class Main {
             }
         }
         System.out.println(longestString);
+    }
+
+    //Task 3:
+    private static void printPartOfWord(String word, int startIndex, int partLength){
+        int endIndex = startIndex + partLength;
+
+        try {
+            String part = word.substring(startIndex, endIndex);
+
+            System.out.println(part);
+        }
+        catch (IndexOutOfBoundsException e){
+            if (endIndex > word.length() && startIndex < word.length()){
+                endIndex = word.length();
+                String part = word.substring(startIndex, endIndex);
+
+                System.out.println(part);
+            }
+            else {
+                System.out.println("Error, not valid start index");
+            }
+        }
+
     }
 
 }
