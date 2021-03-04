@@ -36,16 +36,21 @@ public class Main {
 
 
         //test dine metoder ved at kalde dem her:
-        System.out.println("Words with double consonant:");
+        System.out.println("Task 1: Words with double consonant:");
         printWordsWithDoubleConsonant();
 
-        System.out.println("Longest sentence:");
+        System.out.println("\nTask 2: Longest sentence:");
         printLongestSentence();
 
-        System.out.println("Part of the word København:");
+        System.out.println("\nTask 3: prints part of the word København:");
         printPartOfWord("København", 1,4);
         printPartOfWord("København", 6, 6);
         printPartOfWord("København", 14, 2);
+
+        System.out.println("\nTask 4: prints if the word or sentence is a palindrome:");
+        printIfPalindrome("Den laks skal ned");
+        printIfPalindrome("oppo");
+        printIfPalindrome("worm");
 
 
     }
@@ -149,7 +154,20 @@ public class Main {
                 System.out.println("Error, not valid start index");
             }
         }
+    }
 
+    //Task 4:
+    private static void printIfPalindrome(String str){
+        str = str.toLowerCase();
+        boolean isPalindrome = true;
+        for (int i = 0; i < str.length()/2; i++){
+            if (!(str.charAt(i) == str.charAt(str.length()-i-1))){
+                isPalindrome = false;
+            }
+        }
+        if (isPalindrome){
+            System.out.println(str);
+        }
     }
 
 }
