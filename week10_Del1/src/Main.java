@@ -1,5 +1,4 @@
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -41,6 +40,22 @@ public class Main {
         System.out.println(repeat("hej"));
         System.out.println(repeat("woomy"));
         System.out.println(repeat(""));
+
+        //Opgave 8:
+        System.out.println("Opgave 8:");
+        Scanner scan = new Scanner(System.in);
+        shortestName(scan, 4);
+        shortestName(scan, -1);
+        shortestName(scan, 0);
+
+        //Opgave 9:
+        System.out.println("Opgave 9:");
+        randomNumbers();
+
+        //Opgave 10:
+        System.out.println("Opgave 10:");
+        maxMin();
+
     }
 
     //Opgave 1:
@@ -117,7 +132,52 @@ public class Main {
 
     //Opgave 8:
     public static void shortestName(Scanner scan, int n){
+        ArrayList <String> names = new ArrayList<String>();
+
+        try {
+            for (int i = 0; i < n; i++) {
+                int nameNumber = i + 1;
+                System.out.println("Type name#" + nameNumber + ": ");
+                names.add(scan.nextLine());
+            }
+            Collections.sort(names, Comparator.comparing(String::length));
+
+            System.out.println("The shortest name is: " + names.get(0));
+        }
+        catch (IndexOutOfBoundsException e){
+            System.out.println(e);
+        }
+    }
+
+    //Opgave 9:
+    public static void randomNumbers(){
+        int randNum = 0;
+        Random random = new Random();
+        while (randNum < 900){
+            randNum = random.nextInt(1001);
+            System.out.println("Random number: " +randNum);
+        }
+    }
+
+
+    //Opgave 10:
+    public static void  maxMin(){
+        Scanner scan = new Scanner(System.in);
+        ArrayList <Integer> numbers = new ArrayList<Integer>();
+        int input = 0;
+
+        while (input != -1){
+            System.out.println("Skriv et positivt tal (eller -1 for at afslutte): " + input);
+            input = scan.nextInt();
+            if (input != -1) {
+                numbers.add(input);
+            }
+        }
+        numbers.sort(Comparator.comparing(Integer::valueOf));
+        System.out.println(numbers.get(0));
+        System.out.println(numbers.get(numbers.size()-1));
 
     }
+
 
 }
