@@ -56,6 +56,32 @@ public class Main {
         System.out.println("Opgave 10:");
         maxMin();
 
+        //Opgave 11:
+        System.out.println("Opgave 11:");
+        printMultiple(5);
+        printMultiple(7);
+        printMultiple(-1);
+
+        //Opgave 12:
+        System.out.println("Opgave 12:");
+        int[] intArray1 = {4, 0, 2, 58, 3};
+        int[] intArray2 = {3, 5, 6, 0, -23};
+        System.out.println(max(intArray1));
+        System.out.println(max(intArray2));
+
+        //Opgave 13:
+        System.out.println("Opgave 13:");
+        int[] intArray3 = {1, 2, 3};
+        int[] intArray4 = {2, 4, 6};
+        int[] intArray5 = {34, 5, 5};
+
+        System.out.println(allLess(intArray3, intArray4));
+        System.out.println(allLess(intArray4, intArray5));
+        System.out.println(allLess(intArray4,intArray3));
+        System.out.println(allLess(intArray1, intArray3));
+
+
+
     }
 
     //Opgave 1:
@@ -166,16 +192,65 @@ public class Main {
         ArrayList <Integer> numbers = new ArrayList<Integer>();
         int input = 0;
 
-        while (input != -1){
-            System.out.println("Skriv et positivt tal (eller -1 for at afslutte): " + input);
-            input = scan.nextInt();
-            if (input != -1) {
-                numbers.add(input);
+        try {
+
+            while (input != -1) {
+                System.out.println("Write a positive number (or -1 to end): ");
+                input = scan.nextInt();
+                if (input >= 0) {
+                    numbers.add(input);
+                }
+                if (input < 0 && input != -1) {
+                    System.out.println("Error. Not a positive number.");
+                }
+            }
+            numbers.sort(Comparator.comparing(Integer::valueOf));
+            System.out.println(numbers.get(0));
+            System.out.println(numbers.get(numbers.size() - 1));
+        }
+        catch (IndexOutOfBoundsException e){
+            System.out.println("Ended by typing -1");
+        }
+
+    }
+
+    //Opgave 11:
+    public static void printMultiple(int n){
+        for (int i = 1; i < 10; i++){
+            System.out.print(n*i);
+            if (i < 10-1){
+                System.out.print(" og ");
             }
         }
-        numbers.sort(Comparator.comparing(Integer::valueOf));
-        System.out.println(numbers.get(0));
-        System.out.println(numbers.get(numbers.size()-1));
+        System.out.println("");
+    }
+
+    //Opgave 12:
+    public static int max(int[] arr){
+
+        Arrays.sort(arr);
+        int biggest = arr[arr.length - 1];
+        return biggest;
+    }
+
+    //Opgave 13:
+    public static boolean allLess(int[] arrSmall, int[] arrBig){
+        boolean bool = true;
+
+        if (arrSmall.length == arrBig.length) {
+            for (int i = 0; i < arrSmall.length; i++){
+                if (arrSmall[i] < arrBig[i]){
+                    bool = true;
+                }
+                else {
+                    bool = false;
+                }
+            }
+        }
+        else {
+            bool = false;
+        }
+        return bool;
 
     }
 
