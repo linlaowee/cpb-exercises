@@ -205,8 +205,8 @@ public class Main {
                 }
             }
             numbers.sort(Comparator.comparing(Integer::valueOf));
-            System.out.println(numbers.get(0));
-            System.out.println(numbers.get(numbers.size() - 1));
+            System.out.println("Smallest typed number: " + numbers.get(0));
+            System.out.println("Highest typed number: " + numbers.get(numbers.size() - 1));
         }
         catch (IndexOutOfBoundsException e){
             System.out.println("Ended by typing -1");
